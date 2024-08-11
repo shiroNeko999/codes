@@ -1,0 +1,22 @@
+Brute force solution:
+class Solution {
+public:
+    bool rotateString(string s, string goal) {
+
+        string str = s+s;
+        if(s.length()!= goal.length())
+        return false;
+        for(int i = 0; i< str.length();i++)
+        {
+            for(int j = i; j< str.length(); j++)
+            {
+               string sstr= str.substr(i,j);
+               if(sstr == goal)
+               return true;
+            }
+        }
+        return false;
+        
+    }
+};
+Optimized
