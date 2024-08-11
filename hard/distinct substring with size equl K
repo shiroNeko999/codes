@@ -1,0 +1,67 @@
+Count number of substrings
+Difficulty: MediumAccuracy: 20.46%Submissions: 109K+Points: 4
+Given a string of lowercase alphabets, count all possible substrings (not necessarily distinct) that have exactly k distinct characters. 
+
+Example 1:
+
+Input: S = "aba", K = 2
+Output:3
+Explanation:The substrings are: "ab", "ba" and "aba".
+Input: S = "abaaca", K = 1
+Output: 7
+Explanation: The substrings are: "a", "b", "a", "aa", "a", "c", "a". 
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function substrCount() which takes the string S and an integer K as inputs and returns the number of substrings having exactly K distinct characters.
+
+Expected Time Complexity: O(|S|).
+Expected Auxiliary Space: O(1).
+
+Constraints:
+1 ≤ |S| ≤ 106
+1 ≤ K ≤ 26
+---------------------------------------------------------------------------------------------------------------------------------
+
+class Solution
+{
+  public:
+    long long int substrCount (string s, int k) {
+    	//code here.
+    	return helper_function(s,k) - helper_function(s, (k-1));// Find the no. of substrings with atmost K substrings unique and substract with that of K-1
+    
+    }
+    int helper_function( string s , int k )
+    {
+        	vector<int> charCount(26,0);
+    	int distinctCharacter = 0;
+    	int left = 0;
+    	int count = 0;
+    	for( int right =0; right< s.length(); right++)
+    	{
+    	    
+    	    
+    	    if(charCount[s[right]-'a']==0)
+    	    {
+    	        distinctCharacter++;
+    	    }
+    	    
+    	    charCount[s[right]-'a']++;
+    	    
+    	    while( distinctCharacter> k)
+    	    {
+    	        charCount[s[left]-'a']--;// removing one instance of this character form the window
+    	        
+    	        if(charCount[s[left]-'a']==0) // means that the character is no longer in the window
+    	        {
+    	            distinctCharacter--;// then we subtract the character from the window
+    	        }
+    	        
+    	        left++;
+    	    }
+    	    count += right-left+1;
+    	    
+    	}
+    	return count;
+    	
+    }
+    
+};
