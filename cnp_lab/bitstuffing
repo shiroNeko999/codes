@@ -1,0 +1,48 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include<string.h>
+void bitstuffing(char *array, char *stuffed)
+{
+    
+   int j = 0;
+   int count = 0;
+   
+   strcat(stuffed, "01111110");
+   j= strlen(stuffed);
+   
+   for(int i = 0; array[i]!='\n'; i++)
+   {
+       if(array[i]=='1')
+       {
+           count++;
+       }
+       else{
+           count = 0;
+       }
+       stuffed[j++] = array[i];
+       if(count ==5)
+       {
+        stuffed[j++] = '0';
+        count = 0;
+       }
+       
+        
+       
+      
+       
+   }
+   strcat(stuffed, "01111110");
+   
+   
+
+}
+
+int main() {
+  
+   char array[50]= "01111110";
+   char stuffed[150];
+   stuffed[0] = '\0';
+   bitstuffing(array, stuffed);
+   printf("the stuffed array is %s", stuffed);
+    return 0;
+}
