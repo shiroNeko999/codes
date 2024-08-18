@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> result;
+        vector<int> str;
+        f(0,nums.size(),str, nums, result );
+        return result;
+
+    }
+
+    void f( int i , int n , vector<int>& str, vector<int>& arr, vector<vector<int>>& result)
+    {
+        // to add the subsets into the result
+        if(i==n) // base case
+        {
+            result.push_back(str);
+           
+            return;
+        }
+
+        f(i+1,n, str,arr, result);
+        str.push_back(arr[i]);
+        f(i+1,n,str,arr,result);
+        str.pop_back();
+    }
+};
