@@ -1,0 +1,82 @@
+Given a list arr of n integers, return sums of all subsets in it. Output sums can be printed in any order.
+
+Examples:
+
+Input: n = 2, arr[] = {2, 3}
+Output: 0 2 3 5
+Explanation: When no elements is taken then Sum = 0. When only 2 is taken then Sum = 2. When only 3 is taken then Sum = 3. When element 2 and 3 are taken then Sum = 2+3 = 5.
+Example 2:
+
+Input: n = 3, arr = {1, 2, 1}
+Output: 0 1 1 2 2 3 3 4
+ 
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function subsetSums() which takes a list/vector and an integer n as an input parameter and returns the list/vector of all the subset sums.
+
+Expected Time Complexity: O(2n)
+Expected Auxiliary Space: O(2n)
+
+Constraints:
+1 <= n <= 15
+0 <= arr[i] <= 104
+=================================================================
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution {
+  public:
+    vector<int> subsetSums(vector<int> arr, int n) {
+        // Write Your Code here
+        vector<int> ans;
+        vector<int> ds;
+        f(0, n,arr,ds,ans);
+        return ans;
+    }
+    void f(int i , int n , vector<int>& arr, vector<int>& ds , vector<int>& ans)
+    {
+        if(i==n)
+        {   int sum = 0;
+            for( int k =0; k< ds.size(); k++)
+            {
+                sum += ds[k];
+            }
+            ans.push_back(sum);
+            return;
+        }
+        
+        //not pick case
+        f(i+1, n, arr, ds,ans);
+        //pick case 
+        ds.push_back(arr[i]);
+        f(i+1,n,arr,ds,ans);
+        ds.pop_back();
+        
+    }
+    
+};
+
+//{ Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int N;
+        cin >> N;
+        vector<int> arr(N);
+        for (int i = 0; i < N; i++) {
+            cin >> arr[i];
+        }
+        Solution ob;
+        vector<int> ans = ob.subsetSums(arr, N);
+        sort(ans.begin(), ans.end());
+        for (auto sum : ans) {
+            cout << sum << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}
+// } Driver Code Ends
