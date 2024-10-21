@@ -1,0 +1,47 @@
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        // Counting the size of the linked list
+        ListNode* current = head;
+        int c = 0;
+        while (current != nullptr) {
+            c++;
+            current = current->next;
+        }
+
+        // If the list has only one node
+        if (c == 1) {
+            delete head;
+            return nullptr;
+        }
+
+        // Special case: if the node to remove is the head
+        if (n == c) {
+            ListNode* temp = head;
+            head = head->next;
+            delete temp;
+            return head;
+        }
+
+        // Move fast pointer n steps ahead
+        ListNode* fast = head;
+        while (n != 0) {
+            fast = fast->next;
+            n--;
+        }
+
+        // Traverse with slow and fast pointer together
+        ListNode* slow = head;
+        while (fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+
+        // Remove the nth node from the end
+        ListNode* temp = slow->next;
+        slow->next = slow->next->next;
+        delete temp;
+
+        return head;
+    }
+};
